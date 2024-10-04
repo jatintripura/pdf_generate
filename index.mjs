@@ -1,91 +1,109 @@
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const doc = new jsPDF();
+const doc = new jsPDF({
+  format: "a4",
+  orientation: "portrait",
+  unit: "px",
+});
 
 //image
-const image =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATcAAACiCAMAAAATIHpEAAAAt1BMVEX///81OUAAe/8yNj0pLjYAdf8eJC0Ad/8Afv/V1tcAef/w8fHM4/9fpf/5/f9IS1E7P0aXxf/l5uaSlJfw+P+ny/9gY2kkKTK0tbh0dnssMTnh4uP4+PnZ2tsAc/+9vsCFh4tQU1lAREuqrK6io6Z8foKGvP/Mzc9rbnKjpai21/8rj/9OUVdaXWNnam+v0v9JnP/Z6/+MjpLk8f/O4P9Fmv8YiP9rrf+Cuf8ykf+31f9zsv/S6P/b1+jcAAAHJ0lEQVR4nO2a6XbaOhRGPQhT7DakQDHYYAhDSNLMaUjuvXn/57oejmRNpkmbUFbXt3/ZsqyFN5KOJscBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALyVhx8/Bsrt54E928sRXfY6nemkqbi000nNxOm0k780NZ/QK/byemnxWmeaRmr6pEzWmUa2Mj6K022WPX4Wtxffs9btg5nt6zYLnyqhnZMgCNYN4mZuEPhLJSldrd04KGCL+dL8uGWSP5qb5c36l0n5WpBc9TfSg8k6sHK9R3GnWeh57fCObi9abc9rbY0ad5NnC7Pb4nIT+67rBvfW4qbFQz9Y1SmbIWNJ8UaBnzA27qivjIKyvLmaGq0WjPHXXJ+x45Ww0o9dK+zqFwT8Gg/bXFtu6onuv7TK21st29FjrtML20W9HCfll/g9W3lrVj484bWndxYn2tcl8VqpFyeVnVhJnLmxr77mx/6MHl5pj0QW9zdtvJ7Pn0pv7S/V7VF162WnarZBWKZnN3kjWVS/mvUtxaVVTfB96shmx7q18tWu3Oq6VJ7sbRxY1PjBuPw70uOD9Ra2bpRs5K31Nb9eVyr8haU34c+owYykllZQ30jiTG+Ta2YXE6+Lxz3uzVeJ49G7utlFgzcv9F7kbLK3Dn1UvDJKS6l2xVWL2nBtPku6w+FwkYiEpI6sprex6L/y7rBEiCoycW/HQ5XVRv89H0eTN6/9XY4Nsjfq4PIKZ4TAe0bVrXwi6kWy6PcmBem9S2aTrtBkeFtxbUl81h/1onR5f0m9ZCJ7c3vOROZjDNlp9KbGBsUbr3BsqRXWo5YYVw/mPN9ZXZV6V7xKiu5R9zbl7ZkNReSNNsMiTiRlvJG8/TGavXnZc51N8eYMeS+m/cUrqm6L8m4TcG1yngkXJzzp3s54hrVS+PI4jlnZEg/cW9i6ENlUb5tY6cYE9D3UPfPm3FXtRpSL8QGg5i3ljfta+6nRaDktLw7cmxd+ErFB9eZcU28zVMpa0iCkW95NeYPUgxzPxuOx5q1PrTuxz8mcw/fmtcW8QfPWoSYYKLMfEkBxdsYt6v11RANA/rLqjZeSrJ0mDthbpclrUbLubUIjdqUtcVHHlQCqk5bh8Zxq67y6Vb1F6lDGxuF6az1v1XmD5o07cpk01xzS99Ow7pJu9aBbhw9q5aq3JY8tzXN04W2v6x8qdm/ZzUWrvAizf8t03RufIkqtaaN2W7z7T8yP65Gak+pW9dZXH9oQ496xzHo2/S0Tb6PB2zfnNKPYUK6UGN5GvMKJHztU2+WGoqlrDkd5U3Srnl/1RkNnI5pK1ONphZg1N+13p9EbrYzQvMHwxrtv0X1tqJ7wZZIZb28Wb/TdfuVc9cY7v3Hzb+41zOuTs+Z33ptmb4Ntu543GN5EhePtcKyFAe7NCKfSCK4KqHZv8+bffNjenDtpTcn0NrlUKlzKmyWPcX/AG9tRR9+bHd6ciyzk8wbTmzZ8pW6JzfnjV7RT93fbaawuk1/tcVyyy5vzTLHBuzsyvfHha3xefApVN18M8ikuuP4HxoWZui2zzwWRnd7q2PDgGd6cc6klGtVNaP3AccgBjt/IWx0bPnmGN75gnk9AI5cupTnlT8e9vEr9+rj34OYL3JvzQrGh0qd64+uLedU4r66UOSUtBzFz32v9186zhDeH5g2ezZuYEoxoSyqQlzBm2rJH/Zr7187ra2983mDzVi9ou0oFquDraMY6Ep+edv++dSTJG48NNm+87yeYuqEs1i3VCpcmP1m3pOpojGInh79uKXs7+t5u8iZ2EJR+npPSIl0ylAcI0QnpfOM6+WS5OPx1ctmbc+eFTd568q4y07fhxL7MsP7A9IT3+2IXUfeW2vZlRieWfZmDHYdUXLTDBm9yhTNHqmJekLhiH5A7ScRJCHMfcCn2AdnZahZF6fn9IpZGg2IdaTlSiPY48H2NN+dr1uStV0eG2Nz17Uj7zgt139nfte+8ft2+s3hKxMP9VcBXeROxIdO98bGYsUdTMWs655DsPOfgnDUcONLOOejs8TzSi+rN2Vq9Df6pYgOt/kpMeUO1j1M3x7aTHqwrjzHefK4m6v75czWDKlqK80f/FU0ybL9o2ao1pXyCbxSwpklTw18djc1zXEw9x3VN58J+eo7L5X/N2HbIab/e8k6/1W5nYsPvYVvcPpnZWkX6s5HuRJf5B/rMbxylbq71c4PaPkAnyR8rRw3Lcs1zg5P6jZjZ2ON5pLyHe3p8PK3P0Dw8Pd4avVjOy5fH2xtLev6BXX9xv2solZ7vPqe6Gbv+leWTG8+pOumqb2OfGzM5g8GuW85RQ3pxermxsnF2n4uepPrBZ1Gy/Vw0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOCd+B8R4aBGnIbiSQAAAABJRU5ErkJggg==";
+const logo =
+  "data:image/png;base64,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";
 
-const imageX = 120;
-const imageY = 10;
-const imageWidth = 80;
-const imageHeight = 30;
-doc.addImage(image, "PNG", imageX, imageY, imageWidth, imageHeight);
+const imageX = 20;
+const imageY = 20;
+const imageWidth = 150;
+const imageHeight = 37.5;
+doc.addImage(logo, "PNG", imageX, imageY, imageWidth, imageHeight);
+//text
+const heading = "INVOICE";
+const x_heading = 448 - 20;
+const y_heading = 20;
+const maxWidth_heading = 140;
+doc.setFontSize(36);
 
-const paragraph = "The logo ";
+doc.setTextColor(0, 0, 0);
+doc.text(heading, x_heading, y_heading, {
+  maxWidth: maxWidth_heading,
+  align: "right",
+  baseline: "top",
+});
+const paragraph = "Invoice No: 6786868";
+const x_paragraph = 448 - 20;
+const y_paragraph = 50;
+const maxWidth_paragraph = 160; // Maximum width of the text box
 
-const x = 150;
-const y = 35;
-const maxWidth = 80; // Maximum width of the text box
-
-// Set font size and color
+// Set font size and color for invoice no
 doc.setFontSize(14);
 doc.setTextColor(0, 0, 0);
 
 // Add the paragraph with text wrapping
-doc.text(paragraph, x, y, { maxWidth: maxWidth, align: "left" });
-
-//frist autoTable
-doc.autoTable({
-  margin: { top: 40, left: 10 },
-  head: [[" ", ""]],
-
-  body: [
-    ["BILLED TO:", "Really Great Company"],
-    ["PAY TO:", "Avery Devis"],
-    ["", "123 Anywhere St.. Any City"],
-
-    ["", "123-456-789"],
-    ["Bank:", "Really Great Company"],
-    ["Account Name:", "Avery Devis"],
-    ["BSB", "0000-0000"],
-
-    ["Acount Number", "0000-0000"],
-  ],
-  theme: "plain",
-  columnStyles: {
-    0: {
-      fontSize: 14,
-      fontStyle: "bold",
-      halign: "left",
-    },
-    1: {
-      fontSize: 14,
-      halign: "left",
-    },
-  },
-  styles: {
-    fontSize: 12,
-    // cellPadding: 4,
-    // lineColor: 200,
-    // lineWidth: 0.5,
-  },
-  headStyles: {
-    // fillColor: [0, 0, 0],
-    textColor: 255,
-    fontStyle: "bold",
-  },
-  bodyStyles: {
-    // fillColor: [245, 245, 245],
-    textColor: 50,
-  },
+doc.text(paragraph, x_paragraph, y_paragraph, {
+  maxWidth: maxWidth_paragraph,
+  align: "right",
+  baseline: "top",
 });
 
-// 2nd autoTable
+const date = "23-March-2024";
+const x_date = 448 - 20;
+const y_date = 72;
+const maxWidth_date = 80;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(date, x_date, y_date, { maxWidth: maxWidth_date, align: "right" });
+//frist autoTable
+
+const isuue = "Issued By";
+const x_issue = 20;
+const y_issue = 110;
+const maxWidth_issue = 80;
+doc.setFontSize(20);
+doc.setTextColor(0, 0, 0);
+doc.text(isuue, x_issue, y_issue, { maxWidth: maxWidth_issue, align: "left" });
+const isuue_name = "Name : ";
+const x_issue_name = 20;
+const y_issue_name = 125;
+const maxWidth_issue_name = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(isuue_name, x_issue_name, y_issue_name, {
+  maxWidth: maxWidth_issue_name,
+  align: "left",
+});
+const to = "To :";
+const x_to = 448 - 20;
+const y_to = 110;
+const maxWidth_to = 80;
+doc.setFontSize(20);
+doc.setTextColor(0, 0, 0);
+doc.text(to, x_to, y_to, { maxWidth: maxWidth_to, align: "right" });
+const to_name = "Name :ghjghjgjhgjhgj";
+const x_to_name = 448 - 20;
+const y_to_name = 125;
+const maxWidth_to_name = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(to_name, x_to_name, y_to_name, {
+  maxWidth: maxWidth_to_name,
+  align: "right",
+});
 
 doc.autoTable({
-  margin: { top: 50, left: 10 },
-  head: [["DESCRIPTION", "RATE", "HOURS", "AMOUNT"]],
+  margin: { top: 180, left: 20 },
+  head: [["Items", "Unite Price", "Quantity", "Amount"]],
   body: [
     ["Content Plan", "$50/hr", "4", "$200.00"],
     ["Copy Writing", "$50/hr", "5", "$100.00"],
     ["Website Design", "$50/hr", "3", "$250.00"],
     ["Website Development", "$100/hr", "5", "$500.00"],
     ["SEO", "$50/hr", "4", "$200.00"],
-    ["Sub Total", "", "", "$1,250.00"],
-    ["Package Discount(30%", "", "", "$375.00"],
-    ["Total", "", "", "$875.00"],
+    ["", "", "", ""],
+    ["", "", "Total : ", "$875.00"],
+    [" ", "", "Tax : ", "$375.00"],
+    [" ", "", "Discount : ", "$375.00"],
+    [" ", "", "Due : ", "$375.00"],
+    [" ", "", "Paid : ", "$375.00"],
   ],
 
   columnStyles: {
@@ -97,16 +115,17 @@ doc.autoTable({
     1: {
       fontSize: 14,
 
-      halign: "center",
+      halign: "left",
     },
     2: {
       fontSize: 14,
-      halign: "center",
+      halign: "left",
+      padding: 8,
     },
     3: {
       fontSize: 14,
 
-      halign: "center",
+      halign: "left",
     },
   },
   styles: {
@@ -119,32 +138,19 @@ doc.autoTable({
     fillColor: 255,
     textColor: 0,
     fontStyle: "bold",
-    halign: "center",
+    halign: "left",
   },
   bodyStyles: {
-    // fillColor: [245, 245, 245],
+    fillColor: [255, 255, 255],
     textColor: 0,
   },
 });
 
-// const paragraph =
-//   "This is a paragraph with custom styles. It includes multiple lines of text to demonstrate how text wrapping works in jsPDF. The paragraph is styled with a custom font, size, and alignment.";
-// const x = 10;
-// const y = 200;
-// const maxWidth = 180; // Maximum width of the text box
-
-// // Set font size and color
-// doc.setFontSize(14);
-// doc.setTextColor(50, 60, 100);
-
-// // Add the paragraph with text wrapping
-// doc.text(paragraph, x, y, { maxWidth: maxWidth, align: "left" });
-
 const footer =
   "Payment is required within 14 business days of invoice date. Please send remittance to hello@reallygreatsite.com.";
-const footerX = 10;
-const footerY = 250;
-const maxwidth = 180;
+const footerX = 20;
+const footerY = 565;
+const maxwidth = 500;
 doc.setTextColor(0, 0, 0);
 doc.text(footer, footerX, footerY, {
   maxWidth: maxwidth,
@@ -152,10 +158,10 @@ doc.text(footer, footerX, footerY, {
   padding: 5,
   lineHeightFactor: 1.5,
 });
-const greeting = "Thank you for your business";
-const X = 10;
-const Y = 270;
-const width = 180;
+const greeting = "Thank you for your business.";
+const X = 20;
+const Y = 610;
+const width = 400;
 doc.setTextColor(0, 0, 0);
 doc.text(greeting, X, Y, {
   maxWidth: width,
