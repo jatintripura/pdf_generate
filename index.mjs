@@ -61,7 +61,7 @@ const maxWidth_issue = 80;
 doc.setFontSize(20);
 doc.setTextColor(0, 0, 0);
 doc.text(isuue, x_issue, y_issue, { maxWidth: maxWidth_issue, align: "left" });
-const isuue_name = "Name : ";
+const isuue_name = "Name : fjaljflajfj";
 const x_issue_name = 20;
 const y_issue_name = 125;
 const maxWidth_issue_name = 200;
@@ -69,6 +69,26 @@ doc.setFontSize(14);
 doc.setTextColor(0, 0, 0);
 doc.text(isuue_name, x_issue_name, y_issue_name, {
   maxWidth: maxWidth_issue_name,
+  align: "left",
+});
+const issue_phone = "Phone : 0123456789";
+const x_issue_phone = 20;
+const y_issue_phone = 140;
+const maxWidth_issue_phone = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(issue_phone, x_issue_phone, y_issue_phone, {
+  maxWidth: maxWidth_issue_phone,
+  align: "left",
+});
+const issue_address = "Address : Dhaka";
+const x_issue_address = 20;
+const y_issue_address = 152;
+const maxWidth_issue_address = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(issue_address, x_issue_address, y_issue_address, {
+  maxWidth: maxWidth_issue_address,
   align: "left",
 });
 const to = "To :";
@@ -88,7 +108,26 @@ doc.text(to_name, x_to_name, y_to_name, {
   maxWidth: maxWidth_to_name,
   align: "right",
 });
-
+const to_phone = "Phone : 0123456789";
+const x_to_phone = 448 - 20;
+const y_to_phone = 140;
+const maxWidth_to_phone = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(to_phone, x_to_phone, y_to_phone, {
+  maxWidth: maxWidth_to_phone,
+  align: "right",
+});
+const to_address = "Address : Dhaka";
+const x_to_address = 448 - 20;
+const y_to_address = 152;
+const maxWidth_to_address = 200;
+doc.setFontSize(14);
+doc.setTextColor(0, 0, 0);
+doc.text(to_address, x_to_address, y_to_address, {
+  maxWidth: maxWidth_to_address,
+  align: "right",
+});
 doc.autoTable({
   margin: { top: 180, left: 20 },
   head: [["Items", "Unite Price", "Quantity", "Amount"]],
@@ -149,9 +188,11 @@ doc.autoTable({
 const footer =
   "Payment is required within 14 business days of invoice date. Please send remittance to hello@reallygreatsite.com.";
 const footerX = 20;
-const footerY = 565;
-const maxwidth = 500;
+const footerY = 580;
+const maxwidth = 450;
+doc.setFontSize(12);
 doc.setTextColor(0, 0, 0);
+
 doc.text(footer, footerX, footerY, {
   maxWidth: maxwidth,
   align: "left",
@@ -163,6 +204,7 @@ const X = 20;
 const Y = 610;
 const width = 400;
 doc.setTextColor(0, 0, 0);
+doc.setFontSize(12);
 doc.text(greeting, X, Y, {
   maxWidth: width,
   align: "left",
